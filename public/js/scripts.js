@@ -24,23 +24,32 @@ const handleSubmit = (event) =>{
     if (inputValue !== ""){
         socket.emit('submit_chat',inputValue);
 
-        drawNewChat(`me : ${inputValue}`);
+        drawNewChat(`me : ${inputValue}`,true);
         event.target.elements[0].value = '';
     }
 };
 
 const drawHelloStranger = (username) => {
-    helloStrangerElement.innerText = `Hello ${username} Stranger :)`
+    helloStrangerElement.innerText = `User : ${username}`
 };
 
-const drawNewChat = (massage) =>{
+const drawNewChat = (message, isMe = false) =>{
     const wrapperChatbox = document.createElement('div');
-    const chatBox = `
-        <div>
-            ${massage}
-        </div>
-    `;
-    wrapperChatbox.innerHTML = chatBox;
+    wrapperChatbox.className = 'clearfix';
+    let chatBox;
+    if (!isMe)
+      chatBox = `
+      <div class='bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg clearfix break-all'>
+        ${message}
+      </div>
+      `;
+    else
+      chatBox = `
+      <div class='bg-white w-3/4 ml-auto mr-4 my-2 p-2 rounded-lg clearfix break-all'>
+        ${message}
+      </div>
+      `;
+      wrapperChatbox.innerHTML = chatBox;
     chattingBoxElement.append(wrapperChatbox);
 }
 
