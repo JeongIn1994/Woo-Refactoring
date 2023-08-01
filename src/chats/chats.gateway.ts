@@ -29,7 +29,7 @@ export class ChatsGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     const user = await this.socketModel.findOne({id : socket.id});
     
     if(user){
-      socket.broadcast.emit('disconnetc_user', user.username);
+      socket.broadcast.emit('disconnect_user', user.username);
       await user.deleteOne({id : user.username});
     }
 
